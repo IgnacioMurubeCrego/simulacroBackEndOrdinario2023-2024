@@ -15,6 +15,9 @@ export const resolvers = {
 		getContact: async (_: unknown, args: getContactArgs, ctx: Context): Promise<ContactModel | null> => {
 			return await ctx.contactCollection.findOne({ _id: new ObjectId(args.id) });
 		},
+		getContacts: async (_: unknown, __: unknown, ctx: Context): Promise<ContactModel[]> => {
+			return await ctx.contactCollection.find().toArray();
+		},
 	},
 	Mutation: {},
 	Contact: {
@@ -37,7 +40,7 @@ export const resolvers = {
 				throw new GraphQLError("API Ninjas's request error");
 			}
 			const response: APITime = await data.json();
-      return response.datetime;
+			return response.datetime;
 		},
 	},
 };
